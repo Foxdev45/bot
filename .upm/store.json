@@ -1,0 +1,1 @@
+{"version":2,"languages":{"nodejs-npm":{"specfileHash":"650db78d87d7c038e10ac8559a0222db","lockfileHash":"2c4964cc0a01aab2ee23f3b497b29384","guessedImports":["express","console-stamp","discord.js","dotenv","discord-player","@ffmpeg-installer/ffmpeg"],"guessedImportsHash":"50afdea21170c783bf8222e9d9c270f0"}}}
