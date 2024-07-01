@@ -1,8 +1,5 @@
-
 'use strict';
-
 const fs = require('fs');
-
 const dotenv = require('dotenv');
 const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js');
 const { Player } = require('discord-player');
@@ -23,7 +20,6 @@ const cst = require(`${__dirname}/utils/constants`);
 dotenv.config();
 const ENV = process.env;
 
-
 let client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -43,11 +39,7 @@ client.player = new Player(client, {
     ytdlOptions: cst.ytdlOptions
 });
 
-
 const player = client.player;
-
-
-
 
 const setEnvironment = () => {
     return new Promise((resolve, reject) => {
@@ -95,16 +87,13 @@ const setEnvironment = () => {
             ? client.config.urlQuery
             : ENV.URL_QUERY_TYPE;
 
-        //console.log('setEnvironment: ', client.config);
         resolve();
     });
 }
 
-
 const loadFramework = () => {
     console.log(`-> loading Web Framework ......`);
     return new Promise((resolve, reject) => {
-        const app = express();
         const port = client.config.port || 33333;
 
         app.get('/', function (req, res) {
@@ -117,7 +106,6 @@ const loadFramework = () => {
         });
     })
 }
-
 
 const loadEvents = () => {
     console.log(`-> loading Events ......`);
@@ -155,7 +143,6 @@ const loadPlayer = () => {
     })
 }
 
-
 const loadCommands = () => {
     console.log(`-> loading Commands ......`);
     return new Promise((resolve, reject) => {
@@ -180,6 +167,21 @@ const loadCommands = () => {
     })
 }
 
+const UpdatePresence = () => {
+    const DiscordRichPresence = {
+        state: "Playing Solo",
+        details: "Competitive",
+        startTimestamp: 1507665886,
+        endTimestamp: 1507665886,
+        largeImageText: "Numbani",
+        smallImageText: "Rogue - Level 100",
+        partyId: "ae488379-351d-4a4f-ad32-2b9b01c91657",
+        partySize: 1,
+        partyMax: 5,
+        joinSecret: "MTI4NzM0OjFpMmhuZToxMjMxMjM= ",
+    };
+    Discord_UpdatePresence(DiscordRichPresence);
+}
 
 Promise.resolve()
     .then(() => setEnvironment())
@@ -190,10 +192,8 @@ Promise.resolve()
     .then(() => {
         console.log(`${cst.color.green}*** All loaded successfully ***${cst.color.white}`);
         client.login(ENV.TOKEN);
+        UpdatePresence();
     });
-
-
-
 
 process.on('unhandledRejection', error => {
     console.error('Unhandled promise rejection:', error);
